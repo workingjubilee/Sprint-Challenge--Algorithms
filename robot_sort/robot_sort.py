@@ -96,7 +96,6 @@ class SortingRobot:
 
     def check_if_done(self):
         if self.compare_item() == None:
-            print("Done.")
             return True
         # let's try to have all interaction with the 'None' item happen at the start of the list
         # that way I can use conditions which lead to the None item being not-at-start become break triggers
@@ -125,21 +124,18 @@ class SortingRobot:
 
     def seek_nothingness(self):
         self.move_to_start()
-        print("Moving to start.")
         # this loop allows us to seek the None item I'm using as a marker
         while True:
             if self.can_move_right() and self.compare_item() == None:
                 self.attain_nothingness()
                 break
             elif self.can_move_right() == False and self.compare_item() == None:
-                print("Attaining enlightenment via seek_nothingness.")
                 self.set_light_on()
                 break
             else:
                 if self.can_move_right():
                     self.move_right()
                 else:
-                    print("Hit seek_nothingness else-else break")
                     break
 
     def attain_nothingness(self):
@@ -149,7 +145,6 @@ class SortingRobot:
         if self.can_move_right():
             self.move_right()
         else:
-            print("Attaining enlightenment via attain_nothingness")
             self.set_light_on()
 
     def cleaning_the_end(self):
@@ -190,7 +185,6 @@ class SortingRobot:
                     self.move_right()
                     self.fizzselect()
                 else:
-                    print("Seeking nothingness.")
                     self.seek_nothingness()
 
         pass
