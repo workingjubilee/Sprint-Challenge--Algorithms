@@ -105,8 +105,6 @@ class SortingRobot:
 
     def fizzselect(self):
         if self.compare_item() > 0:
-            print("Fizzed.")
-            print(self._item)
             self.swap_item()
 
     def move_to_end(self):
@@ -128,18 +126,13 @@ class SortingRobot:
     def seek_nothingness(self):
         self.move_to_start()
         print("Moving to start.")
-        print(self._position)
+        # this loop allows us to seek the None item I'm using as a marker
         while True:
             if self.can_move_right() and self.compare_item() == None:
-                self.swap_item()
-                self.move_right()
-                self.swap_item()
-                self.move_right()
-                print(self._list)
-                print("Attained nothingness.")
+                self.attain_nothingness()
                 break
             elif self.can_move_right() == False and self.compare_item() == None:
-                print("Attaining enlightenment.")
+                print("Attaining enlightenment via seek_nothingness.")
                 self.set_light_on()
                 print(self._list)
                 break
@@ -147,10 +140,27 @@ class SortingRobot:
                 if self.can_move_right():
                     self.move_right()
                 else:
+                    print("Hit seek_nothingness else-else break")
                     break
 
     def attain_nothingness(self):
-        if self.compare_item() == None:
+        self.swap_item()
+        self.move_right()
+        self.swap_item()
+        if self.can_move_right():
+            self.move_right()
+        else:
+            print("Attaining enlightenment via attain_nothingness")
+            self.set_light_on()
+
+    def cleaning_the_end(self):
+        self.move_left()
+        if self.compare_item() < 0:
+            self.swap_item()
+            self.move_right()
+            self.swap_item()
+        else:
+            self.move_right()
             self.swap_item()
 
     def sort(self):
@@ -175,16 +185,15 @@ class SortingRobot:
                 if self.check_if_done() == True:
                     return
             else:
-                self.fizzselect()
-                if self.can_move_right():
+                if self.light_is_on():
+                    self.cleaning_the_end()
+                    break
+                elif self.can_move_right():
                     self.move_right()
+                    self.fizzselect()
                 else:
-
-                    if self.light_is_on():
-                        break
-                    else:
-                        print("Seeking nothingness.")
-                        self.seek_nothingness()
+                    print("Seeking nothingness.")
+                    self.seek_nothingness()
 
         pass
 
