@@ -103,6 +103,26 @@ class SortingRobot:
         # this will allow my program to simply error out?
         # the alternative path is to use the None item as a position marker
 
+    def bubble_right(self):
+        # if self.can_move_right():
+        pass
+
+    def move_to_end(self):
+        # reusable logic for movement loops
+        while True:
+            if self.can_move_right():
+                self.move_right()
+            else:
+                break
+
+    def move_to_start(self):
+        # reusable logic for movement loops
+        while True:
+            if self.can_move_left():
+                self.move_left()
+            else:
+                break
+
     def sort(self):
         """
         Sort the robot's list.
@@ -110,8 +130,9 @@ class SortingRobot:
 
         # let's initialize this sorting routine with a quick swap and then nudge to the right?
         # then proceed with a bubble sort? or the "fizzy" select sort
-        self.swap_item()  # sorting... start!
+        self.swap_item()  # None at 0
 
+        # sorting... start!
         while True:
             if self.can_move_left() == False:
                 if self.check_if_done() == True:
