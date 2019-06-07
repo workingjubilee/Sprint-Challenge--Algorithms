@@ -103,9 +103,11 @@ class SortingRobot:
         # this will allow my program to simply error out?
         # the alternative path is to use the None item as a position marker
 
-    def bubble_right(self):
-        # if self.can_move_right():
-        pass
+    def fizzselect(self):
+        if self.compare_item() > 0:
+            print("Fizzed.")
+            print(self._item)
+            self.swap_item()
 
     def move_to_end(self):
         # reusable logic for movement loops
@@ -123,20 +125,67 @@ class SortingRobot:
             else:
                 break
 
+    def seek_nothingness(self):
+        self.move_to_start()
+        print("Moving to start.")
+        print(self._position)
+        while True:
+            if self.can_move_right() and self.compare_item() == None:
+                self.swap_item()
+                self.move_right()
+                self.swap_item()
+                self.move_right()
+                print(self._list)
+                print("Attained nothingness.")
+                break
+            elif self.can_move_right() == False and self.compare_item() == None:
+                print("Attaining enlightenment.")
+                self.set_light_on()
+                print(self._list)
+                break
+            else:
+                if self.can_move_right():
+                    self.move_right()
+                else:
+                    break
+
+    def attain_nothingness(self):
+        if self.compare_item() == None:
+            self.swap_item()
+
     def sort(self):
         """
         Sort the robot's list.
         """
 
         # let's initialize this sorting routine with a quick swap and then nudge to the right?
-        # then proceed with a bubble sort? or the "fizzy" select sort
+        # then proceed with a bubble sort? or the "fizzy" select sort`
         self.swap_item()  # None at 0
+        self.move_right()
+        print(self._position)
 
         # sorting... start!
+        # Thinking about this a bit harder and writing a few methods
+        # I'm going to go with the None-placeholder
+        # That allows me to use None-at-end to mark "done"
+        # We can do a "comparison dance" at the end to make sure we're holding the None object
+
         while True:
             if self.can_move_left() == False:
                 if self.check_if_done() == True:
                     return
+            else:
+                self.fizzselect()
+                if self.can_move_right():
+                    self.move_right()
+                else:
+
+                    if self.light_is_on():
+                        break
+                    else:
+                        print("Seeking nothingness.")
+                        self.seek_nothingness()
+
         pass
 
 
