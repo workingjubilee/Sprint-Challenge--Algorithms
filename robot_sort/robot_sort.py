@@ -134,7 +134,6 @@ class SortingRobot:
             elif self.can_move_right() == False and self.compare_item() == None:
                 print("Attaining enlightenment via seek_nothingness.")
                 self.set_light_on()
-                print(self._list)
                 break
             else:
                 if self.can_move_right():
@@ -172,7 +171,6 @@ class SortingRobot:
         # then proceed with a bubble sort? or the "fizzy" select sort`
         self.swap_item()  # None at 0
         self.move_right()
-        print(self._position)
 
         # sorting... start!
         # Thinking about this a bit harder and writing a few methods
